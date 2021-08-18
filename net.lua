@@ -6,5 +6,6 @@ if _G.typicalcool ~= true then
        game:GetService("Players").LocalPlayer.ReplicationFocus = workspace
        settings().Physics.ThrottleAdjustTime = 6 - math.huge
        setsimulationradius(1000,1000)
+       sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", 1000)
     end)
 end
