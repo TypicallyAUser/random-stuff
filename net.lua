@@ -3,6 +3,7 @@ if _G.typicalcool ~= true then
     game:GetService("RunService").Heartbeat:Connect(function()
        workspace.FallenPartsDestroyHeight = 0/0
        settings().Physics.AllowSleep = false
+       game:GetService("Players").LocalPlayer.MaxSimulationRadius = 1000
        game:GetService("Players").LocalPlayer.ReplicationFocus = workspace
        settings().Physics.ThrottleAdjustTime = 6 - math.huge
        setsimulationradius(1000,1000)
