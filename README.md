@@ -1,4 +1,4 @@
 # random-stuff
-its legit just random stuff i could care less if u leaked it
+welcome to my crap station
 
-ro-ware obfuscated is here btw so yeah lol
+yeah most of this stuff in here is just random crap, people say its good but really its not LMFAO
