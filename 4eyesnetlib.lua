@@ -1,3 +1,4 @@
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -19,6 +20,7 @@ Network.RetainPart(Part)
 
 --]]
 if not getgenv().Network then
+
 	getgenv().Network = {
 		BaseParts = {};
 		FakeConnections = {};
@@ -99,35 +101,6 @@ if not getgenv().Network then
 			Network["PartOwnership"]["PreMethodSettings"].SimulationRadius = gethiddenproperty(LocalPlayer,"SimulationRadius")
 			Network["PartOwnership"]["Connection"] = Network["SuperStepper"].Event:Connect(function() --super fast asynchronous loop
 				sethiddenproperty(LocalPlayer,"SimulationRadius",1/0)
-				for _,Part in pairs(Network["BaseParts"]) do --loop through parts and do network stuff
-					coroutine.wrap(function()
-						if Part:IsDescendantOf(workspace) then
-							if Network.CharacterRelative == true then
-								local Character = LocalPlayer.Character;
-								if Character and Character.PrimaryPart then
-									local Distance = (Character.PrimaryPart.Position - Part.Position).Magnitude
-									if Distance > 1000 then
-										Network["Output"].Send(warn,"PartOwnership Warning : PartOwnership not applied to BasePart "..Part:GetFullName()..", as it is more than "..gethiddenproperty(LocalPlayer,"MaximumSimulationRadius").." studs away.")
-										Lost = true;
-										Network["RemovePart"](Part)
-									end
-								else
-									Network["Output"].Send(warn,"PartOwnership Warning : PartOwnership not applied to BasePart "..Part:GetFullName()..", as the LocalPlayer Character's PrimaryPart does not exist.")
-								end
-							end
-							--Part.Velocity = Network["Velocity"]--+Vector3.new(0,math.cos(tick()*10)/100,0) --keep network by sending physics packets of 30 magnitude + an everchanging addition in the y level so roblox doesnt get triggered and fuck your ownership
-							if isnetworkowner(Part) == false then --lag parts my ownership is contesting but dont have network over to spite the people who have ownership of stuff i want >:(
-								--Network["Output"].Send(warn,"PartOwnership Warning : Part "..Part:GetFullName().." is not owned. Contesting ownership...") --you can comment this out if you dont want console spam lol
-								sethiddenproperty(Part,"NetworkIsSleeping",true)
-							else
-								sethiddenproperty(Part,"NetworkIsSleeping",false)
-							end
-						else
-							Network["RemovePart"](Part)
-						end
-						--[==[ [[by 4eyes btw]] ]==]--
-					end)()
-				end
 			end)
 			Network["Output"].Send(print,"PartOwnership Output : PartOwnership enabled.")
 		else
@@ -151,3 +124,4 @@ if not getgenv().Network then
 	end)
 	Network["Output"].Send(print,": Loaded.")
 end
+-- coroutine.resume(Network["PartOwnership"]["Disable"])
