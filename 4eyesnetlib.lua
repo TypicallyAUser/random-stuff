@@ -39,6 +39,11 @@ if not getgenv().Network then
 			return Network["SuperStepper"]:Fire(Network["SuperStepper"],tick())
 		end)
 	end
+	for i,Event in pairs({RunService.Stepped,RunService.Heartbeat,RunService.RenderStepped}) do
+		Event:Connect(function()
+			return Network["SuperStepper"]:Fire(Network["SuperStepper"],tick())
+		end)
+	end
 	
 	-- EDITED A TAD BIT TO WORK FLAWLESSLY
 	Network["PartOwnership"] = {};
